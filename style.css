@@ -4,8 +4,16 @@
     margin: 0px 100px;
 }
 
-.quiz-container {
+.start-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+}
+
+.quiz-container {
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 50%;
