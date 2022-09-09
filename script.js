@@ -5,6 +5,7 @@ var quizContainer = document.querySelector('.quiz-container');
 var gameOverContainer = document.querySelector('.game-over-container');
 var highScoreContainer = document.querySelector('.high-score-container');
 var highScoreBtn = document.querySelector('.high-score-btn');
+var timeLeftText = document.querySelector('.time-left-text')
 var myQuestions = [
     {
         question: "This is question id 1?",
@@ -45,6 +46,7 @@ var questionsToAsk = [];
 var randomQuestion;
 var correctAnswers = 0;
 var userScoreName = "";
+var timeLeft;
 
 startQuizBtn.addEventListener('click', startQuiz);
 init();
@@ -55,6 +57,9 @@ function startQuiz() {
     correctAnswers = 0;
     getRandomQuestion();
     createQuestion();
+    timeLeft = 5;
+    timeLeftText.textContent = timeLeft;
+    gameTimer = setInterval(timer, 1000);
 }
 
 function init() {
@@ -124,6 +129,7 @@ function resetQuestion() {
 }
 
 function gameOver() {
+    clearInterval(gameTimer);
     quizContainer.setAttribute('style', 'display: none');
     gameOverContainer.setAttribute('style', 'display: flex');
 
@@ -146,10 +152,26 @@ function gameOver() {
     form.appendChild(submitScoreBtn);
     submitScoreBtn.addEventListener('click', submitScore);
 
+    var userScore = document.createElement('h3');
+    userScore.innerText = "Your Score: " + correctAnswers;
+    gameOverContainer.appendChild(userScore);
+    var userTimeScore = document.createElement('h3');
+    userTimeScore.innerText = "Time Remaining: " + timeLeft + " seconds";
+    gameOverContainer.appendChild(userTimeScore);
+
     function submitScore(event) {
         event.preventDefault();
         userScoreName = nameInput.value;
         console.log(userScoreName);
         console.log(correctAnswers);
+    }
+}
+
+function timer() {
+    timeLeft--;
+    timeLeftText.textContent = timeLeft;
+    if (timeLeft === 0) {
+        clearInterval(gameTimer);
+        gameOver();
     }
 }
