@@ -201,6 +201,8 @@ function showHighScores() {
     gameOverContainer.setAttribute('style', 'display: none');
     highScoreContainer.setAttribute('style', 'display: flex');
 
+    highScoreBtn.removeEventListener('click', showHighScores);
+
     var highScoreHeader = document.createElement('h1');
     highScoreHeader.innerText = "High Scores";
     highScoreContainer.appendChild(highScoreHeader);
@@ -220,9 +222,9 @@ function showHighScores() {
         var highScoreStorage = localStorage.getItem('highScoreStorage');
         var highScoreParse = JSON.parse(highScoreStorage);
         console.log(highScoreParse);
-        highScoreItem.innerHTML = "<p>" + highScoreParse[i].name + " SCORE: " + highScoreParse[i].score + " TIME LEFT: " + highScoreParse[i].highScoreTime + "<p>";
+        highScoreItem.innerHTML = "<p>" + highScoreParse[i].name + " --- Score: " + highScoreParse[i].score + " --- Time Left: " + highScoreParse[i].highScoreTime + "s" + "<p>";
         highScoreList.appendChild(highScoreItem);   
-    }
+        }
 
     backBtn.addEventListener('click', goBack);
     function goBack() {
