@@ -208,6 +208,13 @@ function showHighScores() {
     var highScoreList = document.createElement('ol');
     highScoreContainer.appendChild(highScoreList);
 
+    var backBtn = document.createElement('button');
+    backBtn.textContent = "Back";
+    highScoreContainer.appendChild(backBtn);
+    var clearScoresBtn = document.createElement('button');
+    clearScoresBtn.textContent = "Clear High Scores";
+    highScoreContainer.appendChild(clearScoresBtn);
+
     for (i = 0; i < highScoreInfo.length; i++) {
         var highScoreItem = document.createElement('li');
         var highScoreStorage = localStorage.getItem('highScoreStorage');
@@ -216,13 +223,6 @@ function showHighScores() {
         highScoreItem.innerHTML = "<p>" + highScoreParse[i].name + " SCORE: " + highScoreParse[i].score + " TIME LEFT: " + highScoreParse[i].highScoreTime + "<p>";
         highScoreList.appendChild(highScoreItem);   
     }
-
-    var backBtn = document.createElement('button');
-    backBtn.textContent = "Back";
-    highScoreContainer.appendChild(backBtn);
-    var clearScoresBtn = document.createElement('button');
-    clearScoresBtn.textContent = "Clear High Scores";
-    highScoreContainer.appendChild(clearScoresBtn);
 
     backBtn.addEventListener('click', goBack);
     function goBack() {
@@ -241,6 +241,7 @@ function showHighScores() {
         if (confirmClearScores) {
             localStorage.removeItem('highScoreStorage')
             goBack();
+            init();
         }
     }
 }

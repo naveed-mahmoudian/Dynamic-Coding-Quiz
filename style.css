@@ -1,3 +1,46 @@
+body {
+    background-color: black;
+    color: lime;
+    font-family: 'Source Code Pro', monospace;
+}
+
+button {
+    background-color: lime;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px;
+    font-family: 'Source Code Pro', monospace;
+}
+
+button:hover {
+    font-weight: 800;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: darkgreen;
+}
+
+input {
+    background-color: lime;
+    font-size: 15px;
+    padding: 10px;
+}
+
+input::placeholder {
+    color: black;
+}
+
+hr {
+    background-color: lime;
+    padding: 2px;
+}
+
+.time-left-text {
+    font-weight: 600;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
