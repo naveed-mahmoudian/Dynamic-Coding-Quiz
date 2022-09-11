@@ -56,12 +56,15 @@ init();
 function startQuiz() {
     startContainer.setAttribute('style', 'display: none');
     quizContainer.setAttribute('style', 'display: flex');
+
     correctAnswers = 0;
     getRandomQuestion();
     createQuestion();
-    timeLeft = 5;
+
+    timeLeft = 60;
     timeLeftText.textContent = timeLeft;
     gameTimer = setInterval(timer, 1000);
+
     highScoreBtn.removeEventListener('click', showHighScores);
     highScoreTimeLeft = 0;
 }
@@ -128,6 +131,7 @@ function checkAnswer(event) {
         getRandomQuestion();
         createQuestion();
     } else {
+        timeLeft = timeLeft - 10;
         resetQuestion();
         getRandomQuestion();
         createQuestion();
@@ -211,5 +215,32 @@ function showHighScores() {
         console.log(highScoreParse);
         highScoreItem.innerHTML = "<p>" + highScoreParse[i].name + " SCORE: " + highScoreParse[i].score + " TIME LEFT: " + highScoreParse[i].highScoreTime + "<p>";
         highScoreList.appendChild(highScoreItem);   
+    }
+
+    var backBtn = document.createElement('button');
+    backBtn.textContent = "Back";
+    highScoreContainer.appendChild(backBtn);
+    var clearScoresBtn = document.createElement('button');
+    clearScoresBtn.textContent = "Clear High Scores";
+    highScoreContainer.appendChild(clearScoresBtn);
+
+    backBtn.addEventListener('click', goBack);
+    function goBack() {
+        highScoreContainer.setAttribute('style', 'display: none');
+        highScoreContainer.removeChild(highScoreHeader);
+        highScoreContainer.removeChild(highScoreList);
+        highScoreContainer.removeChild(backBtn);
+        highScoreContainer.removeChild(clearScoresBtn);
+        startContainer.setAttribute('style', 'display: flex');
+        highScoreBtn.addEventListener('click', showHighScores);
+    }
+
+    clearScoresBtn.addEventListener('click', clearScores);
+    function clearScores() {
+        var confirmClearScores = confirm("Are you sure you want to clear ALL high scores?")
+        if (confirmClearScores) {
+            localStorage.removeItem('highScoreStorage')
+            goBack();
+        }
     }
 }
