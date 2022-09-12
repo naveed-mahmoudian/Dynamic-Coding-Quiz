@@ -6,6 +6,7 @@ var gameOverContainer = document.querySelector('.game-over-container');
 var highScoreContainer = document.querySelector('.high-score-container');
 var highScoreBtn = document.querySelector('.high-score-btn');
 var timeLeftText = document.querySelector('.time-left-text');
+// List of editable questions
 var myQuestions = [
     {
         question: "This is question id 1?",
@@ -40,22 +41,34 @@ var myQuestions = [
         correctAnswer: 4,
         questionID: 3
     },
-]
+];
 var askedQuestions = [];
 var questionsToAsk = [];
 var randomQuestion;
 var correctAnswers = 0;
 var userScoreName = "";
 var timeLeft;
-var highScoreInfo = []
-
+var highScoreInfo = [];
+// Audio elements
 var correctAudio = new Audio('./sounds/correct-answer.mp3');
 var wrongAudio = new Audio('./sounds/wrong-answer.mp3');
 
+// Event listeners and initialization function
 startQuizBtn.addEventListener('click', startQuiz);
 highScoreBtn.addEventListener('click', showHighScores);
 init();
 
+// Grabs everything stored in local stroage and puts holds them in highScoreInfo[] for later use
+function init() {
+    var initStorage = JSON.parse(localStorage.getItem('highScoreStorage'));
+    if (initStorage != null){
+    for (i = 0; i < initStorage.length; i++) {
+        highScoreInfo.push(initStorage[i]);
+        }
+    }
+}
+
+// Starts the quiz
 function startQuiz() {
     startContainer.setAttribute('style', 'display: none');
     quizContainer.setAttribute('style', 'display: flex');
@@ -79,17 +92,7 @@ function startQuiz() {
     highScoreTimeLeft = 0;
 }
 
-function init() {
-    
-
-    var initStorage = JSON.parse(localStorage.getItem('highScoreStorage'));
-    if (initStorage != null){
-    for (i = 0; i < initStorage.length; i++) {
-        highScoreInfo.push(initStorage[i]);
-        }
-    }
-}
-
+// Gets a random question from the editable list of available questions
 function getRandomQuestion() {
     var randomIndex = Math.floor(Math.random() * myQuestions.length);
     randomQuestion = myQuestions[randomIndex];
@@ -107,8 +110,9 @@ function getRandomQuestion() {
     }
 }
 
+// Takes the randomly selected question and displays to the user
 function createQuestion() {
-     var question = document.createElement('h2')
+     var question = document.createElement('h2');
      question.innerText = randomQuestion.question;
      quizContainer.appendChild(question);
 
@@ -118,21 +122,22 @@ function createQuestion() {
      for (i = 1; i <= Object.values(randomQuestion.answers).length; i++) {
         if (Object.keys(randomQuestion.answers).find(correctAnswer => i === randomQuestion.correctAnswer)) {
             var answer = document.createElement('li');
-            answer.innerHTML = "<button class='ans-btn' id='correct'>" + randomQuestion.answers[i] + "</button>"
+            answer.innerHTML = "<button class='ans-btn' id='correct'>" + randomQuestion.answers[i] + "</button>";
             answerList.appendChild(answer);
-            answer.addEventListener('click', checkAnswer)
+            answer.addEventListener('click', checkAnswer);
         } else {
             var answer = document.createElement('li');
-            answer.innerHTML = "<button class=ans-btn>" + randomQuestion.answers[i] + "</button>"
+            answer.innerHTML = "<button class=ans-btn>" + randomQuestion.answers[i] + "</button>";
             answerList.appendChild(answer);
-            answer.addEventListener('click', checkAnswer)
+            answer.addEventListener('click', checkAnswer);
         }
      }
 }
 
+// Checks to see if the answer the user clicked on is correct or wrong
 function checkAnswer(event) {
     var selectedAnswer = event.target;
-    var correct = selectedAnswer.getAttribute('id')
+    var correct = selectedAnswer.getAttribute('id');
     if (correct) {
         correctAnswers++;
         resetQuestion();
@@ -148,6 +153,7 @@ function checkAnswer(event) {
     }
 }
 
+// Removes the just answered question from display
 function resetQuestion() {
     if (quizContainer.childElementCount !== 0) {
     for (i = 0; i <= quizContainer.childElementCount; i++)
@@ -155,6 +161,7 @@ function resetQuestion() {
     }
 }
 
+// Handles displaying the game over screen and what to when you press the submit button
 function gameOver() {
     clearInterval(gameTimer);
     quizContainer.setAttribute('style', 'display: none');
@@ -208,6 +215,7 @@ function gameOver() {
     }
 }
 
+// Game timer
 function timer() {
     timeLeft--;
     timeLeftText.textContent = timeLeft;
@@ -217,6 +225,7 @@ function timer() {
     }
 }
 
+// Displays the high score screen and what to do when user clicks back or clear high scores buttons
 function showHighScores() {
     startContainer.setAttribute('style', 'display: none');
     gameOverContainer.setAttribute('style', 'display: none');
