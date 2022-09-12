@@ -225,7 +225,7 @@ function timer() {
     }
 }
 
-// Displays the high score screen and what to do when user clicks back or clear high scores buttons
+// Sorts and displays the high score screen and what to do when user clicks back or clear high scores buttons
 function showHighScores() {
     startContainer.setAttribute('style', 'display: none');
     gameOverContainer.setAttribute('style', 'display: none');
@@ -248,6 +248,11 @@ function showHighScores() {
     var clearScoresBtn = document.createElement('button');
     clearScoresBtn.textContent = "Clear High Scores";
     highScoreContainer.appendChild(clearScoresBtn);
+
+    if (highScoreInfo.length > 0) {
+    highScoreInfo.sort((a, b) => b.score - a.score);
+    localStorage.setItem('highScoreStorage', JSON.stringify(highScoreInfo));
+    }
 
     for (i = 0; i < highScoreInfo.length; i++) {
         var highScoreItem = document.createElement('li');
