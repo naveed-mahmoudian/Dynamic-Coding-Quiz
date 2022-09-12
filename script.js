@@ -245,6 +245,9 @@ function checkAnswer(event) {
         correctAudio.play();
     } else {
         timeLeft = timeLeft - 10;
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+        }
         resetQuestion();
         getRandomQuestion();
         createQuestion();
@@ -290,6 +293,10 @@ function gameOver() {
     gameOverContainer.appendChild(userScore);
 
     var userTimeScore = document.createElement('h3');
+    if (timeLeft <= 0) {
+        timeLeft = 0;
+        timeLeftText.textContent = "00";
+    }
     userTimeScore.innerText = "Time Remaining: " + timeLeft + " seconds";
     gameOverContainer.appendChild(userTimeScore);
 
@@ -318,7 +325,7 @@ function gameOver() {
 function timer() {
     timeLeft--;
     timeLeftText.textContent = timeLeft;
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
         clearInterval(gameTimer);
         gameOver();
     }
