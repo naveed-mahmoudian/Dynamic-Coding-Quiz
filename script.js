@@ -5,7 +5,7 @@ var quizContainer = document.querySelector('.quiz-container');
 var gameOverContainer = document.querySelector('.game-over-container');
 var highScoreContainer = document.querySelector('.high-score-container');
 var highScoreBtn = document.querySelector('.high-score-btn');
-var timeLeftText = document.querySelector('.time-left-text')
+var timeLeftText = document.querySelector('.time-left-text');
 var myQuestions = [
     {
         question: "This is question id 1?",
@@ -57,7 +57,14 @@ function startQuiz() {
     startContainer.setAttribute('style', 'display: none');
     quizContainer.setAttribute('style', 'display: flex');
 
+    askedQuestions = [];
+    questionsToAsk = [];
+    for (i = 0; i < myQuestions.length; i++) {
+        questionsToAsk.push(myQuestions[i].questionID);
+        }
+
     correctAnswers = 0;
+    resetQuestion();
     getRandomQuestion();
     createQuestion();
 
@@ -70,9 +77,7 @@ function startQuiz() {
 }
 
 function init() {
-    for (i = 0; i < myQuestions.length; i++) {
-    questionsToAsk.push(myQuestions[i].questionID);
-    }
+    
 
     var initStorage = JSON.parse(localStorage.getItem('highScoreStorage'));
     if (initStorage != null){
@@ -139,8 +144,10 @@ function checkAnswer(event) {
 }
 
 function resetQuestion() {
+    if (quizContainer.childElementCount !== 0) {
     for (i = 0; i <= quizContainer.childElementCount; i++)
-    quizContainer.lastElementChild.remove();
+        quizContainer.lastElementChild.remove();
+    }
 }
 
 function gameOver() {
@@ -170,6 +177,7 @@ function gameOver() {
     var userScore = document.createElement('h3');
     userScore.innerText = "Your Score: " + correctAnswers;
     gameOverContainer.appendChild(userScore);
+
     var userTimeScore = document.createElement('h3');
     userTimeScore.innerText = "Time Remaining: " + timeLeft + " seconds";
     gameOverContainer.appendChild(userTimeScore);
@@ -180,10 +188,14 @@ function gameOver() {
 
         highScoreInfo.push({name: userScoreName, score: correctAnswers, highScoreTime: timeLeft});
         localStorage.setItem('highScoreStorage', JSON.stringify(highScoreInfo));
-        showHighScores();
 
-        console.log(userScoreName);
-        console.log(correctAnswers);
+        gameOverContainer.removeChild(gameOverHeader);
+        gameOverContainer.removeChild(form);
+        gameOverContainer.removeChild(userScore);
+        gameOverContainer.removeChild(userTimeScore);
+
+        showHighScores();
+        
     }
 }
 
