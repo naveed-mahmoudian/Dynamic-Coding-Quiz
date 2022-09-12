@@ -49,6 +49,9 @@ var userScoreName = "";
 var timeLeft;
 var highScoreInfo = []
 
+var correctAudio = new Audio('./sounds/correct-answer.mp3');
+var wrongAudio = new Audio('./sounds/wrong-answer.mp3');
+
 startQuizBtn.addEventListener('click', startQuiz);
 highScoreBtn.addEventListener('click', showHighScores);
 init();
@@ -135,11 +138,13 @@ function checkAnswer(event) {
         resetQuestion();
         getRandomQuestion();
         createQuestion();
+        correctAudio.play();
     } else {
         timeLeft = timeLeft - 10;
         resetQuestion();
         getRandomQuestion();
         createQuestion();
+        wrongAudio.play();
     }
 }
 
