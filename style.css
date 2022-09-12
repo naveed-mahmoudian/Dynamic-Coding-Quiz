@@ -52,7 +52,7 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 80%;
     margin: auto;
 }
 
@@ -60,7 +60,7 @@ hr {
     display: none;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 80%;
     margin: auto;
 }
 
@@ -68,7 +68,7 @@ hr {
     display: none;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 80%;
     margin: auto;
 }
 
@@ -76,6 +76,6 @@ hr {
     display: none;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 80%;
     margin: auto;
 }
