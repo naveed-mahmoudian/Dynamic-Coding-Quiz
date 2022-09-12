@@ -251,11 +251,16 @@ function showHighScores() {
 
     clearScoresBtn.addEventListener('click', clearScores);
     function clearScores() {
-        var confirmClearScores = confirm("Are you sure you want to clear ALL high scores?")
-        if (confirmClearScores) {
-            localStorage.removeItem('highScoreStorage')
-            goBack();
-            init();
-        }
+        if (highScoreInfo.length === 0) {
+            alert("No high scores to clear!");
+        } else {
+            var confirmClearScores = confirm("Are you sure you want to clear ALL high scores?")
+            if (confirmClearScores) {
+                localStorage.removeItem('highScoreStorage')
+                highScoreInfo = [];
+                goBack();
+                init();
+            }
+        } 
     }
 }
