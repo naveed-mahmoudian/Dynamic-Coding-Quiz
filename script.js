@@ -186,15 +186,19 @@ function gameOver() {
         event.preventDefault();
         userScoreName = nameInput.value;
 
-        highScoreInfo.push({name: userScoreName, score: correctAnswers, highScoreTime: timeLeft});
-        localStorage.setItem('highScoreStorage', JSON.stringify(highScoreInfo));
-
-        gameOverContainer.removeChild(gameOverHeader);
-        gameOverContainer.removeChild(form);
-        gameOverContainer.removeChild(userScore);
-        gameOverContainer.removeChild(userTimeScore);
-
-        showHighScores();
+        if (userScoreName.length < 2) {
+            alert("Name must be at least 2 characters long!");
+        } else {
+            highScoreInfo.push({name: userScoreName, score: correctAnswers, highScoreTime: timeLeft});
+            localStorage.setItem('highScoreStorage', JSON.stringify(highScoreInfo));
+    
+            gameOverContainer.removeChild(gameOverHeader);
+            gameOverContainer.removeChild(form);
+            gameOverContainer.removeChild(userScore);
+            gameOverContainer.removeChild(userTimeScore);
+    
+            showHighScores();
+        }
         
     }
 }
@@ -212,6 +216,8 @@ function showHighScores() {
     startContainer.setAttribute('style', 'display: none');
     gameOverContainer.setAttribute('style', 'display: none');
     highScoreContainer.setAttribute('style', 'display: flex');
+
+    timeLeftText.textContent = "00";
 
     highScoreBtn.removeEventListener('click', showHighScores);
 
@@ -233,7 +239,6 @@ function showHighScores() {
         var highScoreItem = document.createElement('li');
         var highScoreStorage = localStorage.getItem('highScoreStorage');
         var highScoreParse = JSON.parse(highScoreStorage);
-        console.log(highScoreParse);
         highScoreItem.innerHTML = "<p>" + highScoreParse[i].name + " --- Score: " + highScoreParse[i].score + " --- Time Left: " + highScoreParse[i].highScoreTime + "s" + "<p>";
         highScoreList.appendChild(highScoreItem);   
         }
