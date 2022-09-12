@@ -9,37 +9,136 @@ var timeLeftText = document.querySelector('.time-left-text');
 // List of editable questions
 var myQuestions = [
     {
-        question: "This is question id 1?",
+        question: "JavaScript code can be placed in which HTML element?",
         answers: {
-            1: "Answer a",
-            2: "Answer b",
-            3: "Answer c",
-            4: "Answer d",
+            1: "Within the JAVASCRIPT tag",
+            2: "Within the JS tag",
+            3: "Within the SCRIPT tag",
+            4: "None of the above",
         },
-        correctAnswer: 4,
+        correctAnswer: 3,
         questionID: 1
     },
     {
-        question: "This is question id 2?",
+        question: "How would you display 'Hello World' in an alert to the user?",
         answers: {
-            1: "Answer a",
-            2: "Answer b",
-            3: "Answer c",
-            4: "Answer d",
+            1: "alertBox('Hello World');",
+            2: "alert('Hello World');",
+            3: "message('Hello World');",
+            4: "msgBox('Hello World');",
         },
-        correctAnswer: 4,
+        correctAnswer: 2,
         questionID: 2
     },
     {
-        question: "This is question id 3?",
+        question: "How would you CREATE a function in JavaScript?",
         answers: {
-            1: "Answer a",
-            2: "Answer b",
-            3: "Answer c",
-            4: "Answer d",
+            1: "function myFunction()",
+            2: "function = myFunction()",
+            3: "function: myFunction()",
+            4: "myFunction()",
+        },
+        correctAnswer: 1,
+        questionID: 3
+    },
+    {
+        question: "How would you CALL a function in JavaScript?",
+        answers: {
+            1: "function myFunction()",
+            2: "function = myFunction()",
+            3: "function: myFunction()",
+            4: "myFunction()",
         },
         correctAnswer: 4,
-        questionID: 3
+        questionID: 4
+    },
+    {
+        question: "How do you correctly structure a for loop?",
+        answers: {
+            1: "for (i = 0; i < 3)",
+            2: "for (i < 3; i++)",
+            3: "for (i = 0; i <= 3; i++)",
+            4: "for (i = 0; i < 3; i = 3)",
+        },
+        correctAnswer: 3,
+        questionID: 5
+    },
+    {
+        question: "How do add a single line comment in JavaScript?",
+        answers: {
+            1: "// Comment here",
+            2: "$(Comment Here)",
+            3: "/* Comment here */",
+            4: "`Comment here`",
+        },
+        correctAnswer: 1,
+        questionID: 6
+    },
+    {
+        question: "How do add a block comment in JavaScript?",
+        answers: {
+            1: "// Comment here",
+            2: "$(Comment Here)",
+            3: "/* Comment here */",
+            4: "`Comment here`",
+        },
+        correctAnswer: 3,
+        questionID: 7
+    },
+    {
+        question: "Which of the following is the correct way to write a JavaScript array?",
+        answers: {
+            1: "var nums = 1, 2, 3;",
+            2: "var nums = [1, 2, 3];",
+            3: "var nums = [1: '1', 2: '2', 3: '3'];",
+            4: "var nums = (1, 2, 3);",
+        },
+        correctAnswer: 2,
+        questionID: 8
+    },
+    {
+        question: "Which of the following is the correct way to add a JavaScript event listener for when a user clicks a button?",
+        answers: {
+            1: "button.eventListener('click', clickFunction);",
+            2: "button.addEventListener('click', clickFunction);",
+            3: "button.addEventListener('onClick');",
+            4: "button.eventListener('onClick');",
+        },
+        correctAnswer: 2,
+        questionID: 9
+    },
+    {
+        question: "How do you declare a JavaScript variable?",
+        answers: {
+            1: "v myVariable;",
+            2: "variable myVariable;",
+            3: "myVariable = var;",
+            4: "var myVariable;",
+        },
+        correctAnswer: 4,
+        questionID: 10
+    },
+    {
+        question: "How would you round 9.25 to the nearest integer in JavaScript?",
+        answers: {
+            1: "Math.round(9.25)",
+            2: "Math.rnd(9.25)",
+            3: "rnd(9.25)",
+            4: "round(9.25)",
+        },
+        correctAnswer: 1,
+        questionID: 11
+    },
+    {
+        question: "What symbol would you use to compare type AND value?",
+        answers: {
+            1: "!=",
+            2: "=",
+            3: "==",
+            4: "===",
+        },
+        correctAnswer: 4,
+        questionID: 12
     },
 ];
 var askedQuestions = [];
@@ -84,7 +183,7 @@ function startQuiz() {
     getRandomQuestion();
     createQuestion();
 
-    timeLeft = 60;
+    timeLeft = 75;
     timeLeftText.textContent = timeLeft;
     gameTimer = setInterval(timer, 1000);
 
