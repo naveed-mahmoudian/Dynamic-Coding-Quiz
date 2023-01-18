@@ -1,4 +1,4 @@
-# Challenge 04
+# Dynamic Coding Quiz
 
 ## Description
 
